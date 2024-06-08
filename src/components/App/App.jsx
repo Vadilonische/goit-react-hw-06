@@ -44,11 +44,11 @@ export default function App() {
     <div>
       <h1>Phonebook</h1>
 
-      <ContactForm onAdd={addContact} />
+      <ContactForm />
 
-      <SearchBox value={inputValue} onSearch={setInputValue} />
+      <SearchBox />
 
-      <ContactList onDelete={deleteContact} contacts={visibleContacts} />
+      <ContactList />
     </div>
   );
 }

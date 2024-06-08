@@ -1,13 +1,20 @@
 import css from "./ContactForm.module.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useId } from "react";
+import { useDispatch } from "react-redux";
 import * as Yup from "yup";
+import { addContact } from "../../redux/contactsSlice";
 
-export default function ContactForm({ onAdd }) {
+export default function ContactForm() {
   const initialValues = {
     name: "",
     number: "",
   };
+
+  const nameFieldId = useId();
+  const numberFieldId = useId();
+
+  const dispatch = useDispatch();
 
   const handleSubmit = (values, actions) => {
     const newContact = {
@@ -15,7 +22,7 @@ export default function ContactForm({ onAdd }) {
       name: values.name,
       number: values.number,
     };
-    onAdd(newContact);
+    dispatch(addContact(newContact));
     actions.resetForm();
   };
 
@@ -32,9 +39,6 @@ export default function ContactForm({ onAdd }) {
       .required("Це обовʼязкове поле!"),
   });
 
-  const nameFieldId = useId();
-  const numberFieldId = useId();
-
   return (
     <Formik
       initialValues={initialValues}
@@ -48,7 +52,7 @@ export default function ContactForm({ onAdd }) {
             className={css.formInputAdd}
             type="text"
             name="name"
-            id="nameFieldId"
+            id={nameFieldId}
           />
           <ErrorMessage name="name" component="span" />
         </div>
@@ -58,7 +62,7 @@ export default function ContactForm({ onAdd }) {
             className={css.formInputAdd}
             type="text"
             name="number"
-            id="numberFieldId"
+            id={numberFieldId}
           />
           <ErrorMessage name="number" component="span" />
         </div>
